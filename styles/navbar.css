@@ -239,3 +239,7 @@ body {
     pointer-events: none;
     opacity: 0.4;
 }
+
+label {
+    font-weight: bold;
+}
