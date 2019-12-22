@@ -43,15 +43,19 @@
         courseItems[i].style.display = "none";
     }
 
+    //TEMPORARY fix for viewing input form:
+    //We'll remove this line of code in the next class!
+    document.getElementById("logRoundDiv").style.display = "block";
+
     //Disable menu button:
     document.getElementById("menuBtn").disabled = true;
 
     mode = "loginMode";
 
-    //set the input focus to the email field
+    //set the input focus of login screen to the email field
     document.getElementById("emailInput").focus();
 
-    //Set default date in log round input form:
+    //Set default date in log round input form to today:
     document.getElementById("roundDate").valueAsNumber = 
       Date.now()-(new Date()).getTimezoneOffset()*60000;
   }
@@ -60,10 +64,9 @@
   //we need to close it and toggle menu state variable.
   document.addEventListener("click",function(e) {
     if (menuOpen) {
-      if (!pageLocked) { //Change hamburger to X when menu open
-        document.getElementById("menuBtnIcon").classList.remove("fa-times"); 
-        document.getElementById("menuBtnIcon").classList.add("fa-bars");
-      }
+      document.getElementById("menuBtnIcon").classList.remove("fa-times"); 
+      //Change hamburger to X when menu open
+      document.getElementById("menuBtnIcon").classList.add("fa-bars");
       document.getElementById("sideMenu").style.width = "0px"; //close menu
       menuOpen = false;
     }
@@ -72,25 +75,6 @@
 //menuBtn click: When the top-left side menu button is clicked and the menu
 //is closed, we need to open it and toggle menu state variable.
 document.getElementById("menuBtn").addEventListener("click",function(e) {
-  if (pageLocked) { //user is clicking left arrow to exit locked page
-    pageLocked = false;
-    //restore hamburger icon
-    document.getElementById("menuBtnIcon").classList.remove("fa-arrow-left"); 
-    document.getElementById("menuBtnIcon").classList.add("fa-bars"); 
-    //Hide current page
-    var currModePages = document.getElementsByClassName(mode + "Div");
-    for (var i = 0; i < currModePages.length; ++i) {
-      currModePages[i].style.display = "none"; //hide
-    }
-    //Show main mode page
-    document.getElementById(mode + "MainDiv").style.display = "block";
-    //Restore main mode page title
-    document.getElementById("topBarTitle").textContent = modeToTitle[mode];
-    //Re-enable bottom bar buttons
-    document.getElementById("bottomBar").classList.remove("disabledButton");
-    e.stopPropagation();
-    return;
-  }
   if (!menuOpen) {
     document.getElementById("menuBtnIcon").classList.remove("fa-bars"); 
     //Change hamburger to X when menu open
@@ -132,38 +116,8 @@ var bottomBarBtnClick = function() {
   }
 }
 
-  
-//MENU BUTTON HANDLERS GO HERE
-
-//logRoundItem click: Take the user to the log round page
-document.getElementById("logRoundItem").onclick = function(e) {
-  //Swap pages:
-  document.getElementById("roundsModeMainDiv").style.display = "none";
-  document.getElementById("logRoundDiv").style.display = "block";
-  //Change page title:
-  document.getElementById("topBarTitle").textContent = "Log New Round";
-  //Set pageLocked to true, thus indicating that we're on a page that may only
-  //be exited by clicking on the left arrow at top left
-  pageLocked = true;
-  //When pageLocked is true, the menu  icon is the left arrow
-  document.getElementById("menuBtnIcon").classList.remove("fa-times");
-  document.getElementById("menuBtnIcon").classList.add("fa-arrow-left");
-  //When pageLocked is true, the bottom bar buttons are disabled
-  document.getElementById("bottomBar").classList.add("disabledButton");
-}
-
-//aboutBtn click: When the user clicks on "About", launch the modal About dialog
-//box.
-document.getElementById("aboutBtn").onclick = function(e) {
-  document.getElementById("aboutModal").style.display = "block";
-};
-
-//APP PAGE FUNCTIONS AND HANDLERS GO HERE
-
-//LOG IN
-
 //login -- This function sets the initial app state after login. It is called
-//from setTimeout after the button spinner has commenced.
+//from setTimeout after the button spinner has commenced.bottombar
 function login() {
   //Stop spinner
   document.getElementById("loginBtnIcon").classList.remove("fas","fa-spinner","fa-spin");
@@ -208,8 +162,14 @@ document.getElementById("loginInterface").onsubmit = function(e) {
   setTimeout(login,300);
   e.preventDefault(); //Prevents form refresh -- the default behavior
 };
+  
+//MENU BUTTON HANDLERS GO HERE
 
-//ABOUT BOX
+//aboutBtn click: When the user clicks on "About", launch the modal About dialog
+//box.
+document.getElementById("aboutBtn").onclick = function(e) {
+  document.getElementById("aboutModal").style.display = "block";
+};
 
 //closeAbout click: When the user clicks a button to cloe the modal About box, hide the
 //dialog box. Note that this function is bound to the two items with class
@@ -225,8 +185,7 @@ document.getElementById("logOutBtn").onclick = function(e) {
   startUp();
 };
 
-//LOG ROUND
-
+//ADDITIONAL AUXILARY FUNCTIONS GO HERE
 //updateSGS --When the strokes, minutes or seconds fields are updated, we need
 //to update the speedgolf score accordingly.
 function updateSGS() {
@@ -235,7 +194,6 @@ function updateSGS() {
   var seconds = document.getElementById("roundSeconds").value;
   document.getElementById("roundSGS").value = (strokes + minutes) + ":" + seconds;
 }
-
 //changeSeconds - When the seconds fields is updated, we need to ensure that the
 //nds field of the round time is zero-padded. We also need to call updateSGS to
 //update the speedgolf score based on the new seconds value.

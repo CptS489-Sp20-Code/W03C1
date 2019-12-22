@@ -7,9 +7,6 @@ includeHTML();
 var menuOpen = false; 
 //Variable captures current UI mode
 var mode = "loginMode"; 
-//We'll use this to indicate we're on a "locked" page where you have to click
-//left arrow to get back to main mode page.
-var pageLocked = false;
 
 //Associative array maps modes to page titles
 var modeToTitle = {"feedMode": "Activity Feed",
