@@ -60,6 +60,10 @@
   //we need to close it and toggle menu state variable.
   document.addEventListener("click",function(e) {
     if (menuOpen) {
+      if (!pageLocked) { //Change hamburger back to 'X'
+          document.getElementById("menuBtnIcon").classList.remove("fa-times"); 
+          document.getElementById("menuBtnIcon").classList.add("fa-bars");
+      }
       document.getElementById("sideMenu").style.width = "0px"; //close menu
       menuOpen = false;
     }
@@ -69,6 +73,25 @@
 //menuBtn click: When the top-left side menu button is clicked and the menu
 //is closed, we need to open it and toggle menu state variable.
 document.getElementById("menuBtn").addEventListener("click",function(e) {
+  if (pageLocked) { //user is clicking left arrow to exit locked page
+    pageLocked = false;
+    //restore hamburger icon
+    document.getElementById("menuBtnIcon").classList.remove("fa-arrow-left"); 
+    document.getElementById("menuBtnIcon").classList.add("fa-bars"); 
+    //Hide current page
+    var currModePages = document.getElementsByClassName(mode + "Div");
+    for (var i = 0; i < currModePages.length; ++i) {
+      currModePages[i].style.display = "none"; //hide
+    }
+    //Show main mode page
+    document.getElementById(mode + "MainDiv").style.display = "block";
+    //Restore main mode page title
+    document.getElementById("topBarTitle").textContent = modeToTitle[mode];
+    //Re-enable bottom bar buttons
+    document.getElementById("bottomBar").classList.remove("disabledButton");
+    e.stopPropagation();
+    return;
+  }
   if (!menuOpen) {
     document.getElementById("menuBtnIcon").classList.remove("fa-bars"); 
     //Change hamburger to X when menu open
@@ -188,6 +211,14 @@ document.getElementById("logRoundItem").onclick = function(e) {
   document.getElementById("topBarTitle").textContent = "Log New Round";
   //Set label of form button appropriately
   document.getElementById("submitBtnLabel").textContent = "Save Round Data";
+  //Set pageLocked to true, thus indicating that we're on a page that may only
+  //be exited by clicking on the left arrow at top left
+  pageLocked = true;
+  //When pageLocked is true, the menu  icon is the left arrow
+  document.getElementById("menuBtnIcon").classList.remove("fa-times");
+  document.getElementById("menuBtnIcon").classList.add("fa-arrow-left");
+  //When pageLocked is true, the bottom bar buttons are disabled
+  document.getElementById("bottomBar").classList.add("disabledButton");
 }
 
 
