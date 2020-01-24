@@ -232,10 +232,12 @@ document.getElementById("logRoundForm").onsubmit = function(e) {
   setTimeout(saveRoundData,1000);
 }
 
+//saveRoundData -- Callback function called from logRoundForm's submit handler.
+//Stops the spinner and then saves the entered round data to local storage.
 function saveRoundData() {
 
   //Stop spinner
-  document.getElementById("saveIcon").classList.remove("fas", "fa-spinner", "fa-spin");
+  document.getElementById("saveIcon").classList.remove("fa-spinner", "fa-spin");
 
   //Retrieve from localStorage this user's rounds and roundCount
   let thisUser = localStorage.getItem("userName");
@@ -267,7 +269,7 @@ function saveRoundData() {
 
   //Commit updated user data to app data in local storage
   localStorage.setItem("speedgolfUserData",JSON.stringify(data));
-  }
+}
 
 
 //logRoundItem click: Take the user to the log round page
