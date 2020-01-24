@@ -30,7 +30,7 @@
 			{
 				"pattern": {
 					"type": "string",
-					"expression": "//logRoundItem click: Take the user to the log round page\r\ndocument.getElementById(\"logRoundItem\").onclick = function(e) {\r\n  //Swap pages:\r\n  document.getElementById(\"roundsModeMainDiv\").style.display = \"none\";\r\n  document.getElementById(\"logRoundDiv\").style.display = \"block\";\r\n  //Change page title:\r\n  document.getElementById(\"topBarTitle\").textContent = \"Log New Round\";\r\n  //Set label of form button appropriately\r\n  document.getElementById(\"submitBtnLabel\").textContent = \"Save Round Data\";\r\n\r\n}",
+					"expression": "//Set pageLocked to true, thus indicating that we're on a page that may only\r\n  //be exited by clicking on the left arrow at top left\r\n  pageLocked = true;\r\n  //When pageLocked is true, the menu  icon is the left arrow\r\n  document.getElementById(\"menuBtnIcon\").classList.remove(\"fa-times\");\r\n  document.getElementById(\"menuBtnIcon\").classList.add(\"fa-arrow-left\");\r\n  //When pageLocked is true, the bottom bar buttons are disabled\r\n  document.getElementById(\"bottomBar\").classList.add(\"disabledButton\");",
 					"ignoreCase": false,
 					"wholeMatch": false
 				},
@@ -39,7 +39,43 @@
 			{
 				"pattern": {
 					"type": "string",
-					"expression": "//logRoundItem click: Take the user to the log round page\r\ndocument.getElementById(\"logRoundItem\").onclick = function(e) {\r\n  //Swap pages:\r\n  document.getElementById(\"roundsModeMainDiv\").style.display = \"none\";\r\n  document.getElementById(\"logRoundDiv\").style.display = \"block\";\r\n  //Change page title:\r\n  document.getElementById(\"topBarTitle\").textContent = \"Log New Round\";\r\n  //Set label of form button appropriately\r\n  document.getElementById(\"submitBtnLabel\").textContent = \"Save Round Data\";\r\n}",
+					"expression": "//We'll use this to indicate we're on a \"locked\" page where you have to click\r\n//left arrow to get back to main mode page.\r\nvar pageLocked = false;",
+					"ignoreCase": false,
+					"wholeMatch": false
+				},
+				"color": "yellow"
+			},
+			{
+				"pattern": {
+					"type": "string",
+					"expression": "if (menuOpen) {\r\n      if (!pageLocked) { //Change hamburger back to 'X'\r\n          document.getElementById(\"menuBtnIcon\").classList.remove(\"fa-times\"); \r\n          document.getElementById(\"menuBtnIcon\").classList.add(\"fa-bars\");\r\n      }\r\n      document.getElementById(\"sideMenu\").style.width = \"0px\"; //close menu\r\n      menuOpen = false;\r\n    }",
+					"ignoreCase": false,
+					"wholeMatch": false
+				},
+				"color": "yellow"
+			},
+			{
+				"pattern": {
+					"type": "string",
+					"expression": "//Check whether we have saved data on this (or any) user:\r\n  let data = localStorage.getitem(\"speedgolfUserData\");\r\n  if (data == null) { \r\n    //No user app data stored yet -- create blank record for current user\r\n    localStorage.setItem(\"speedgolfUserData\",\r\n      JSON.stringify({thisUser : {\"rounds\" : {}, \"roundCount\": 0}}));  \r\n  } else {\r\n    //app data exists -- check if data exists for thisUser\r\n    data = JSON.parse(data);\r\n    if  (!data.hasOwnProperty(thisUser)) { \r\n      //No data for this user -- create empty data\r\n      data[thisUser] = {\"rounds\": {}, \"roundCount\": 0}; \r\n      localStorage.setItem(\"speedgolfUserData\",JSON.stringify(data));\r\n    }\r\n  }",
+					"ignoreCase": false,
+					"wholeMatch": false
+				},
+				"color": "yellow"
+			},
+			{
+				"pattern": {
+					"type": "string",
+					"expression": " //Write login name of user who just logged in to localStorage\r\n  let thisUser = document.getElementById(\"userName\").value;\r\n  localStorage.setItem(\"userName\",thisUser);",
+					"ignoreCase": false,
+					"wholeMatch": false
+				},
+				"color": "yellow"
+			},
+			{
+				"pattern": {
+					"type": "string",
+					"expression": "  //Write login name of user who just logged in to localStorage\r\n  let thisUser = document.getElementById(\"emailInput\").value;\r\n  localStorage.setItem(\"userName\",thisUser);\r\n  //Check whether we have saved data on this (or any) user:\r\n  let data = localStorage.getItem(\"speedgolfUserData\");\r\n  if (data == null) { \r\n    //No user app data stored yet -- create blank record for current user\r\n    localStorage.setItem(\"speedgolfUserData\",\r\n      JSON.stringify({thisUser : {\"rounds\" : {}, \"roundCount\": 0}}));  \r\n  } else {\r\n    //app data exists -- check if data exists for thisUser\r\n    data = JSON.parse(data);\r\n    if  (!data.hasOwnProperty(thisUser)) { \r\n      //No data for this user -- create empty data\r\n      data[thisUser] = {\"rounds\": {}, \"roundCount\": 0}; \r\n      localStorage.setItem(\"speedgolfUserData\",JSON.stringify(data));\r\n    }\r\n  }",
 					"ignoreCase": false,
 					"wholeMatch": false
 				},

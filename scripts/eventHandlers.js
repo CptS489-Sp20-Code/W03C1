@@ -166,6 +166,26 @@ function login() {
   //hide login screen and show feed screen
   document.getElementById("loginModeDiv").style.display = "none";
   document.getElementById(mode + "MainDiv").style.display = "block";
+
+  //Write login name of user who just logged in to localStorage
+  let thisUser = document.getElementById("emailInput").value;
+  localStorage.setItem("userName",thisUser);
+  //Check whether we have saved data on this (or any) user:
+  let data = localStorage.getItem("speedgolfUserData");
+  if (data == null) { 
+    //No user app data stored yet -- create blank record for current user
+    localStorage.setItem("speedgolfUserData",
+      JSON.stringify({thisUser : {"rounds" : {}, "roundCount": 0}}));  
+  } else {
+    //app data exists -- check if data exists for thisUser
+    data = JSON.parse(data);
+    if  (!data.hasOwnProperty(thisUser)) { 
+      //No data for this user -- create empty data
+      data[thisUser] = {"rounds": {}, "roundCount": 0}; 
+      localStorage.setItem("speedgolfUserData",JSON.stringify(data));
+    }
+  }
+  
 }
 
 //loginInterface submit: When the login button is clicked, we rely on form
