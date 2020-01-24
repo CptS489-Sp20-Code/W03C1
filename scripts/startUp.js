@@ -17,6 +17,11 @@ var modeToTitle = {"feedMode": "Activity Feed",
 //Array of app modes -- useful for iterating through mode pages
 var modes = ["loginMode","feedMode","roundsMode","coursesMode"];
 
+//We'll use this to indicate we're on a "locked" page where you have to click
+//left arrow to get back to main mode page.
+var pageLocked = false;
+
+
 //Bind bottomBarBtnClick function to all elements of class bottomBarBtn
 var bottomBtns = document.getElementsByClassName("bottomBarBtn");
 for (var i = 0; i < bottomBtns.length; ++i) {
