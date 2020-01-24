@@ -185,7 +185,7 @@ function login() {
       localStorage.setItem("speedgolfUserData",JSON.stringify(data));
     }
   }
-  
+   
 }
 
 //loginInterface submit: When the login button is clicked, we rely on form
@@ -221,6 +221,54 @@ document.getElementById("logOutBtn").onclick = function(e) {
   //Restore starting app state
   startUp();
 };
+
+//logRoundForm SUBMIT: When the user clicks the "Save" button to save a newly
+//entered speedgolf round, we need to save it to local storage
+document.getElementById("logRoundForm").onsubmit = function(e) {
+  e.preventDefault(); //We do NOT want the button to trigger a page reload!
+  //Start spinner
+  document.getElementById("saveIcon").classList.add("fas", "fa-spinner", "fa-spin");
+  //Set spinner to spin for one second, after which saveRoundData will be called
+  setTimeout(saveRoundData,1000);
+}
+
+function saveRoundData() {
+
+  //Stop spinner
+  document.getElementById("saveIcon").classList.remove("fas", "fa-spinner", "fa-spin");
+
+  //Retrieve from localStorage this user's rounds and roundCount
+  let thisUser = localStorage.getItem("userName");
+  let data = JSON.parse(localStorage.getItem("speedgolfUserData"));
+   
+    //increment roundCount since we're adding a new round
+  data[thisUser].roundCount++;
+
+  //Initialize empty JavaScript object to store this new round
+  let thisRound = {}; //iniitalize empty object for this round
+  let temp; //temporary value for storying DOM elements as needed
+
+  //Store the data
+  thisRound.roundNum = data[thisUser].roundCount;
+  thisRound.date = document.getElementById("roundDate").value; //round date
+  thisRound.course = document.getElementById("roundCourse").value;
+  temp = document.getElementById("roundType");
+  thisRound.type = temp.options[temp.selectedIndex].value;
+  temp = document.getElementById("roundHoles");
+  thisRound.numHoles = temp.options[temp.selectedIndex].value;
+  thisRound.strokes = document.getElementById("roundStrokes").value;
+  thisRound.minutes = document.getElementById("roundMinutes").value;
+  thisRound.seconds = document.getElementById("roundSeconds").value;
+  thisRound.SGS = document.getElementById("roundSGS").value;
+  thisRound.notes = document.getElementById("roundNotes").value;
+
+  //Add this round to associative array of rounds
+  data[thisUser].rounds[data[thisUser].roundCount] = thisRound;
+
+  //Commit updated user data to app data in local storage
+  localStorage.setItem("speedgolfUserData",JSON.stringify(data));
+  }
+
 
 //logRoundItem click: Take the user to the log round page
 document.getElementById("logRoundItem").onclick = function(e) {
