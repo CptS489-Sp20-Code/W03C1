@@ -1,0 +1,50 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.port": 5502,
+		"textmarker.defaultHighlightColor": "yellow",
+		"textmarker.highlightColors": [],
+		"textmarker.savedHighlights": [
+			{
+				"pattern": {
+					"type": "string",
+					"expression": "//logRoundItem click: Take the user to the log round page\r\ndocument.getElementById(\"logRoundItem\").onclick = function (e) {\r\n  //Swap pages:\r\n  document.getElementById(\"roundsModeMainDiv\").style.display = \"none\";\r\n  document.getElementById(\"logRoundDiv\").style.display = \"block\";\r\n  //Change page title:\r\n  document.getElementById(\"topBarTitle\").textContent = \"Log New Round\";\r\n  //Set label of form button appropriately\r\n  document.getElementById(\"submitBtnLabel\").textContent = \"Save Round Data\";\r\n\r\n}",
+					"ignoreCase": false,
+					"wholeMatch": false
+				},
+				"color": "darkgoldenrod"
+			},
+			{
+				"pattern": {
+					"type": "string",
+					"expression": "//logRoundItem click: Take the user to the log round page\r\ndocument.getElementById(\"logRoundItem\").onclick = function (e) {\r\n  //Swap pages:\r\n  document.getElementById(\"roundsModeMainDiv\").style.display = \"none\";\r\n  document.getElementById(\"logRoundDiv\").style.display = \"block\";\r\n  //Change page title:\r\n  document.getElementById(\"topBarTitle\").textContent = \"Log New Round\";\r\n  //Set label of form button appropriately\r\n  document.getElementById(\"submitBtnLabel\").textContent = \"Save Round Data\";\r\n}",
+					"ignoreCase": false,
+					"wholeMatch": false
+				},
+				"color": "yellow"
+			},
+			{
+				"pattern": {
+					"type": "string",
+					"expression": "//logRoundItem click: Take the user to the log round page\r\ndocument.getElementById(\"logRoundItem\").onclick = function(e) {\r\n  //Swap pages:\r\n  document.getElementById(\"roundsModeMainDiv\").style.display = \"none\";\r\n  document.getElementById(\"logRoundDiv\").style.display = \"block\";\r\n  //Change page title:\r\n  document.getElementById(\"topBarTitle\").textContent = \"Log New Round\";\r\n  //Set label of form button appropriately\r\n  document.getElementById(\"submitBtnLabel\").textContent = \"Save Round Data\";\r\n\r\n}",
+					"ignoreCase": false,
+					"wholeMatch": false
+				},
+				"color": "yellow"
+			},
+			{
+				"pattern": {
+					"type": "string",
+					"expression": "//logRoundItem click: Take the user to the log round page\r\ndocument.getElementById(\"logRoundItem\").onclick = function(e) {\r\n  //Swap pages:\r\n  document.getElementById(\"roundsModeMainDiv\").style.display = \"none\";\r\n  document.getElementById(\"logRoundDiv\").style.display = \"block\";\r\n  //Change page title:\r\n  document.getElementById(\"topBarTitle\").textContent = \"Log New Round\";\r\n  //Set label of form button appropriately\r\n  document.getElementById(\"submitBtnLabel\").textContent = \"Save Round Data\";\r\n}",
+					"ignoreCase": false,
+					"wholeMatch": false
+				},
+				"color": "yellow"
+			}
+		]
+	}
+}
