@@ -30,25 +30,7 @@
 			{
 				"pattern": {
 					"type": "string",
-					"expression": "//Set pageLocked to true, thus indicating that we're on a page that may only\r\n  //be exited by clicking on the left arrow at top left\r\n  pageLocked = true;\r\n  //When pageLocked is true, the menu  icon is the left arrow\r\n  document.getElementById(\"menuBtnIcon\").classList.remove(\"fa-times\");\r\n  document.getElementById(\"menuBtnIcon\").classList.add(\"fa-arrow-left\");\r\n  //When pageLocked is true, the bottom bar buttons are disabled\r\n  document.getElementById(\"bottomBar\").classList.add(\"disabledButton\");",
-					"ignoreCase": false,
-					"wholeMatch": false
-				},
-				"color": "yellow"
-			},
-			{
-				"pattern": {
-					"type": "string",
 					"expression": "//We'll use this to indicate we're on a \"locked\" page where you have to click\r\n//left arrow to get back to main mode page.\r\nvar pageLocked = false;",
-					"ignoreCase": false,
-					"wholeMatch": false
-				},
-				"color": "yellow"
-			},
-			{
-				"pattern": {
-					"type": "string",
-					"expression": "if (menuOpen) {\r\n      if (!pageLocked) { //Change hamburger back to 'X'\r\n          document.getElementById(\"menuBtnIcon\").classList.remove(\"fa-times\"); \r\n          document.getElementById(\"menuBtnIcon\").classList.add(\"fa-bars\");\r\n      }\r\n      document.getElementById(\"sideMenu\").style.width = \"0px\"; //close menu\r\n      menuOpen = false;\r\n    }",
 					"ignoreCase": false,
 					"wholeMatch": false
 				},
@@ -94,6 +76,24 @@
 				"pattern": {
 					"type": "string",
 					"expression": "function saveRoundData() {\r\n\r\n  //Stop spinner\r\n  document.getElementById(\"saveIcon\").classList.remove(\"fas\", \"fa-spinner\", \"fa-spin\");\r\n\r\n  //Retrieve from localStorage this user's rounds and roundCount\r\n  let thisUser = localStorage.getItem(\"userName\");\r\n  let data = JSON.parse(localStorage.getItem(\"speedgolfUserData\"));\r\n   \r\n    //increment roundCount since we're adding a new round\r\n  data[thisUser].roundCount++;\r\n\r\n  //Initialize empty JavaScript object to store this new round\r\n  let thisRound = {}; //iniitalize empty object for this round\r\n  let temp; //temporary value for storying DOM elements as needed\r\n\r\n  //Store the data\r\n  thisRound.roundNum = data[thisUser].roundCount;\r\n  thisRound.date = document.getElementById(\"roundDate\").value; //round date\r\n  thisRound.course = document.getElementById(\"roundCourse\").value;\r\n  temp = document.getElementById(\"roundType\");\r\n  thisRound.type = temp.options[temp.selectedIndex].value;\r\n  temp = document.getElementById(\"roundHoles\");\r\n  thisRound.numHoles = temp.options[temp.selectedIndex].value;\r\n  thisRound.strokes = document.getElementById(\"roundStrokes\").value;\r\n  thisRound.minutes = document.getElementById(\"roundMinutes\").value;\r\n  thisRound.seconds = document.getElementById(\"roundSeconds\").value;\r\n  thisRound.SGS = document.getElementById(\"roundSGS\").value;\r\n  thisRound.notes = document.getElementById(\"roundNotes\").value;\r\n\r\n  //Add this round to associative array of rounds\r\n  data[thisUser].rounds[data[thisUser].roundCount] = thisRound;\r\n\r\n  //Commit updated user data to app data in local storage\r\n  localStorage.setItem(\"speedgolfUserData\",JSON.stringify(data));\r\n  }",
+					"ignoreCase": false,
+					"wholeMatch": false
+				},
+				"color": "yellow"
+			},
+			{
+				"pattern": {
+					"type": "string",
+					"expression": "function saveRoundData() {\r\n\r\n  //Stop spinner\r\n  document.getElementById(\"saveIcon\").classList.remove(\"fa-spinner\", \"fa-spin\");\r\n\r\n  //Retrieve from localStorage this user's rounds and roundCount\r\n  let thisUser = localStorage.getItem(\"userName\");\r\n  let data = JSON.parse(localStorage.getItem(\"speedgolfUserData\"));\r\n   \r\n    //increment roundCount since we're adding a new round\r\n  data[thisUser].roundCount++;\r\n\r\n  //Initialize empty JavaScript object to store this new round\r\n  let thisRound = {}; //iniitalize empty object for this round\r\n  let temp; //temporary value for storying DOM elements as needed\r\n\r\n  //Store the data\r\n  thisRound.roundNum = data[thisUser].roundCount;\r\n  thisRound.date = document.getElementById(\"roundDate\").value; //round date\r\n  thisRound.course = document.getElementById(\"roundCourse\").value;\r\n  temp = document.getElementById(\"roundType\");\r\n  thisRound.type = temp.options[temp.selectedIndex].value;\r\n  temp = document.getElementById(\"roundHoles\");\r\n  thisRound.numHoles = temp.options[temp.selectedIndex].value;\r\n  thisRound.strokes = document.getElementById(\"roundStrokes\").value;\r\n  thisRound.minutes = document.getElementById(\"roundMinutes\").value;\r\n  thisRound.seconds = document.getElementById(\"roundSeconds\").value;\r\n  thisRound.SGS = document.getElementById(\"roundSGS\").value;\r\n  thisRound.notes = document.getElementById(\"roundNotes\").value;\r\n\r\n  //Add this round to associative array of rounds\r\n  data[thisUser].rounds[data[thisUser].roundCount] = thisRound;\r\n\r\n  //Commit updated user data to app data in local storage\r\n  localStorage.setItem(\"speedgolfUserData\",JSON.stringify(data));\r\n  }",
+					"ignoreCase": false,
+					"wholeMatch": false
+				},
+				"color": "yellow"
+			},
+			{
+				"pattern": {
+					"type": "string",
+					"expression": "//saveRoundData -- Callback function called from logRoundForm's submit handler.\r\n//Stops the spinner and then saves the entered round data to local storage.\r\nfunction saveRoundData() {\r\n\r\n  //Stop spinner\r\n  document.getElementById(\"saveIcon\").classList.remove(\"fa-spinner\", \"fa-spin\");\r\n\r\n  //Retrieve from localStorage this user's rounds and roundCount\r\n  let thisUser = localStorage.getItem(\"userName\");\r\n  let data = JSON.parse(localStorage.getItem(\"speedgolfUserData\"));\r\n   \r\n    //increment roundCount since we're adding a new round\r\n  data[thisUser].roundCount++;\r\n\r\n  //Initialize empty JavaScript object to store this new round\r\n  let thisRound = {}; //iniitalize empty object for this round\r\n  let temp; //temporary value for storying DOM elements as needed\r\n\r\n  //Store the data\r\n  thisRound.roundNum = data[thisUser].roundCount;\r\n  thisRound.date = document.getElementById(\"roundDate\").value; //round date\r\n  thisRound.course = document.getElementById(\"roundCourse\").value;\r\n  temp = document.getElementById(\"roundType\");\r\n  thisRound.type = temp.options[temp.selectedIndex].value;\r\n  temp = document.getElementById(\"roundHoles\");\r\n  thisRound.numHoles = temp.options[temp.selectedIndex].value;\r\n  thisRound.strokes = document.getElementById(\"roundStrokes\").value;\r\n  thisRound.minutes = document.getElementById(\"roundMinutes\").value;\r\n  thisRound.seconds = document.getElementById(\"roundSeconds\").value;\r\n  thisRound.SGS = document.getElementById(\"roundSGS\").value;\r\n  thisRound.notes = document.getElementById(\"roundNotes\").value;\r\n\r\n  //Add this round to associative array of rounds\r\n  data[thisUser].rounds[data[thisUser].roundCount] = thisRound;\r\n\r\n  //Commit updated user data to app data in local storage\r\n  localStorage.setItem(\"speedgolfUserData\",JSON.stringify(data));\r\n}",
 					"ignoreCase": false,
 					"wholeMatch": false
 				},
