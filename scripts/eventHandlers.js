@@ -43,10 +43,6 @@
         courseItems[i].style.display = "none";
     }
 
-    //TEMPORARY fix for viewing input form:
-    //We'll remove this line of code in the next class!
-    document.getElementById("logRoundDiv").style.display = "block";
-
     //Disable menu button:
     document.getElementById("menuBtn").disabled = true;
 
@@ -184,6 +180,18 @@ document.getElementById("logOutBtn").onclick = function(e) {
   //Restore starting app state
   startUp();
 };
+
+//logRoundItem click: Take the user to the log round page
+document.getElementById("logRoundItem").onclick = function(e) {
+  //Swap pages:
+  document.getElementById("roundsModeMainDiv").style.display = "none";
+  document.getElementById("logRoundDiv").style.display = "block";
+  //Change page title:
+  document.getElementById("topBarTitle").textContent = "Log New Round";
+  //Set label of form button appropriately
+  document.getElementById("submitBtnLabel").textContent = "Save Round Data";
+
+}
 
 //ADDITIONAL AUXILARY FUNCTIONS GO HERE
 //updateSGS --When the strokes, minutes or seconds fields are updated, we need
