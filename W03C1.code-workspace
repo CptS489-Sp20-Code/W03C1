@@ -66,15 +66,6 @@
 			{
 				"pattern": {
 					"type": "string",
-					"expression": "//logRoundForm SUBMIT: When the user clicks the \"Save\" button to save a newly\r\n//entered speedgolf round, we need to save it to local storage\r\ndocument.getElementById(\"logRoundForm\").onsubmit = function(e) {\r\n  e.preventDefault(); //We do NOT want the button to trigger a page reload!\r\n  //Start spinner\r\n  document.getElementById(\"saveIcon\").classList.add(\"fas\", \"fa-spinner\", \"fa-spin\");\r\n  //Set spinner to spin for one second, after which saveRoundData will be called\r\n  setTimeout(saveRoundData,1000);\r\n}",
-					"ignoreCase": false,
-					"wholeMatch": false
-				},
-				"color": "yellow"
-			},
-			{
-				"pattern": {
-					"type": "string",
 					"expression": "function saveRoundData() {\r\n\r\n  //Stop spinner\r\n  document.getElementById(\"saveIcon\").classList.remove(\"fas\", \"fa-spinner\", \"fa-spin\");\r\n\r\n  //Retrieve from localStorage this user's rounds and roundCount\r\n  let thisUser = localStorage.getItem(\"userName\");\r\n  let data = JSON.parse(localStorage.getItem(\"speedgolfUserData\"));\r\n   \r\n    //increment roundCount since we're adding a new round\r\n  data[thisUser].roundCount++;\r\n\r\n  //Initialize empty JavaScript object to store this new round\r\n  let thisRound = {}; //iniitalize empty object for this round\r\n  let temp; //temporary value for storying DOM elements as needed\r\n\r\n  //Store the data\r\n  thisRound.roundNum = data[thisUser].roundCount;\r\n  thisRound.date = document.getElementById(\"roundDate\").value; //round date\r\n  thisRound.course = document.getElementById(\"roundCourse\").value;\r\n  temp = document.getElementById(\"roundType\");\r\n  thisRound.type = temp.options[temp.selectedIndex].value;\r\n  temp = document.getElementById(\"roundHoles\");\r\n  thisRound.numHoles = temp.options[temp.selectedIndex].value;\r\n  thisRound.strokes = document.getElementById(\"roundStrokes\").value;\r\n  thisRound.minutes = document.getElementById(\"roundMinutes\").value;\r\n  thisRound.seconds = document.getElementById(\"roundSeconds\").value;\r\n  thisRound.SGS = document.getElementById(\"roundSGS\").value;\r\n  thisRound.notes = document.getElementById(\"roundNotes\").value;\r\n\r\n  //Add this round to associative array of rounds\r\n  data[thisUser].rounds[data[thisUser].roundCount] = thisRound;\r\n\r\n  //Commit updated user data to app data in local storage\r\n  localStorage.setItem(\"speedgolfUserData\",JSON.stringify(data));\r\n  }",
 					"ignoreCase": false,
 					"wholeMatch": false
@@ -93,7 +84,25 @@
 			{
 				"pattern": {
 					"type": "string",
-					"expression": "//saveRoundData -- Callback function called from logRoundForm's submit handler.\r\n//Stops the spinner and then saves the entered round data to local storage.\r\nfunction saveRoundData() {\r\n\r\n  //Stop spinner\r\n  document.getElementById(\"saveIcon\").classList.remove(\"fa-spinner\", \"fa-spin\");\r\n\r\n  //Retrieve from localStorage this user's rounds and roundCount\r\n  let thisUser = localStorage.getItem(\"userName\");\r\n  let data = JSON.parse(localStorage.getItem(\"speedgolfUserData\"));\r\n   \r\n    //increment roundCount since we're adding a new round\r\n  data[thisUser].roundCount++;\r\n\r\n  //Initialize empty JavaScript object to store this new round\r\n  let thisRound = {}; //iniitalize empty object for this round\r\n  let temp; //temporary value for storying DOM elements as needed\r\n\r\n  //Store the data\r\n  thisRound.roundNum = data[thisUser].roundCount;\r\n  thisRound.date = document.getElementById(\"roundDate\").value; //round date\r\n  thisRound.course = document.getElementById(\"roundCourse\").value;\r\n  temp = document.getElementById(\"roundType\");\r\n  thisRound.type = temp.options[temp.selectedIndex].value;\r\n  temp = document.getElementById(\"roundHoles\");\r\n  thisRound.numHoles = temp.options[temp.selectedIndex].value;\r\n  thisRound.strokes = document.getElementById(\"roundStrokes\").value;\r\n  thisRound.minutes = document.getElementById(\"roundMinutes\").value;\r\n  thisRound.seconds = document.getElementById(\"roundSeconds\").value;\r\n  thisRound.SGS = document.getElementById(\"roundSGS\").value;\r\n  thisRound.notes = document.getElementById(\"roundNotes\").value;\r\n\r\n  //Add this round to associative array of rounds\r\n  data[thisUser].rounds[data[thisUser].roundCount] = thisRound;\r\n\r\n  //Commit updated user data to app data in local storage\r\n  localStorage.setItem(\"speedgolfUserData\",JSON.stringify(data));\r\n}",
+					"expression": "//Go back to \"My Rounds\" page by programmatically clicking the menu button\r\n document.getElementById(\"menuBtn\").click();\r\n\r\n //Clear form to ready for next use\r\n clearRoundForm();",
+					"ignoreCase": false,
+					"wholeMatch": false
+				},
+				"color": "yellow"
+			},
+			{
+				"pattern": {
+					"type": "string",
+					"expression": "//clearRoundForm -- Helper function that clears out data previously entered into\r\n//the \"Log New Round\" form and resets all fields to their default values\r\nfunction clearRoundForm() {\r\n  document.getElementById(\"roundDate\").valueAsNumber = \r\n  Date.now()-(new Date()).getTimezoneOffset()*60000;\r\n  document.getElementById(\"roundCourse\").value = \"\";\r\n  document.getElementById(\"roundType\").value = \"practice\";\r\n  document.getElementById(\"roundHoles\").value = \"18\";\r\n  document.getElementById(\"roundStrokes\").value = \"80\";\r\n  document.getElementById(\"roundMinutes\").value = \"50\";\r\n  document.getElementById(\"roundSeconds\").value = \"00\";\r\n  document.getElementById(\"roundSGS\").value = \"130:00\";\r\n  document.getElementById(\"roundNotes\").value = \"\";\r\n}",
+					"ignoreCase": false,
+					"wholeMatch": false
+				},
+				"color": "yellow"
+			},
+			{
+				"pattern": {
+					"type": "string",
+					"expression": "//Show alert box with current state of speedgolfUserData for debugging purposes\r\n  data = localStorage.getItem('speedgolfUserData');\r\n  alert(\"speedgolfUserData: \" +  data);",
 					"ignoreCase": false,
 					"wholeMatch": false
 				},

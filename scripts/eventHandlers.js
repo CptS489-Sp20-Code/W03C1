@@ -56,6 +56,22 @@
       Date.now()-(new Date()).getTimezoneOffset()*60000;
   }
 
+//clearRoundForm -- Helper function that clears out data previously entered into
+//the "Log New Round" form and resets all fields to their default values
+function clearRoundForm() {
+  document.getElementById("roundDate").valueAsNumber = 
+  Date.now()-(new Date()).getTimezoneOffset()*60000;
+  document.getElementById("roundCourse").value = "";
+  document.getElementById("roundType").value = "practice";
+  document.getElementById("roundHoles").value = "18";
+  document.getElementById("roundStrokes").value = "80";
+  document.getElementById("roundMinutes").value = "50";
+  document.getElementById("roundSeconds").value = "00";
+  document.getElementById("roundSGS").value = "130:00";
+  document.getElementById("roundNotes").value = "";
+}
+
+
   //document click: When the user clicks anywhere in the doc and the menu is open
   //we need to close it and toggle menu state variable.
   document.addEventListener("click",function(e) {
@@ -269,6 +285,17 @@ function saveRoundData() {
 
   //Commit updated user data to app data in local storage
   localStorage.setItem("speedgolfUserData",JSON.stringify(data));
+
+  //Show alert box with current state of speedgolfUserData for debugging purposes
+  data = localStorage.getItem('speedgolfUserData');
+  alert("speedgolfUserData: " +  data);
+  
+
+ //Go back to "My Rounds" page by programmatically clicking the menu button
+ document.getElementById("menuBtn").click();
+
+ //Clear form to ready for next use
+ clearRoundForm();
 }
 
 
